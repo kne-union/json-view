@@ -100,19 +100,21 @@ const JsonValue = ({ data, path, onToggle, collapsedKeys, highlight, matchedPath
           </>
         )}
         {!isCollapsed && (
-          <span className={style.content} style={{ paddingLeft: `${indentWidth}px` }}>
-            {entries.map(([keyName, value], index) => (
-              <div key={keyName} className={style.line}>
-                <span className={style.key}>{type === 'object' ? `"${keyName}"` : keyName}</span>
-                <span className={style.colon}>:</span>
-                <JsonValue data={value} path={[...path, keyName]} onToggle={onToggle} collapsedKeys={collapsedKeys} highlight={highlight} matchedPaths={matchedPaths} indentWidth={indentWidth} showComma={index < entries.length - 1} />
-              </div>
-            ))}
-            <span className={style.line}>
+          <>
+            <span className={style.content} style={{ paddingLeft: `${indentWidth}px` }}>
+              {entries.map(([keyName, value], index) => (
+                <div key={keyName} className={style.line}>
+                  <span className={style.key}>{type === 'object' ? `"${keyName}"` : keyName}</span>
+                  <span className={style.colon}>:</span>
+                  <JsonValue data={value} path={[...path, keyName]} onToggle={onToggle} collapsedKeys={collapsedKeys} highlight={highlight} matchedPaths={matchedPaths} indentWidth={indentWidth} showComma={index < entries.length - 1} />
+                </div>
+              ))}
+            </span>
+            <span className={style['close-line']}>
               <span className={style.bracket}>{closeBracket}</span>
               {showComma && <span className={style.comma}>,</span>}
             </span>
-          </span>
+          </>
         )}
       </span>
     );
