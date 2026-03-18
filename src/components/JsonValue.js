@@ -5,7 +5,7 @@ import { getDataType } from '../utils/helpers';
 import HighlightText from './HighlightText';
 import style from '../style.module.scss';
 
-const JsonValue = ({ data, path, onToggle, collapsedKeys, highlight, matchedPaths, indentWidth }) => {
+const JsonValue = ({ data, path, onToggle, collapsedKeys, highlight, matchedPaths, indentWidth, showComma }) => {
   const { formatMessage } = useIntl();
   const type = getDataType(data);
   const key = path.join('.');
@@ -17,34 +17,53 @@ const JsonValue = ({ data, path, onToggle, collapsedKeys, highlight, matchedPath
   }, [key, onToggle]);
 
   if (type === 'null') {
-    return <span className={classNames(style.null, { [style.matched]: isMatched })}>null</span>;
+    return (
+      <>
+        <span className={classNames(style.null, { [style.matched]: isMatched })}>null</span>
+        {showComma && <span className={style.comma}>,</span>}
+      </>
+    );
   }
 
   if (type === 'undefined') {
-    return <span className={classNames(style.null, { [style.matched]: isMatched })}>undefined</span>;
+    return (
+      <>
+        <span className={classNames(style.null, { [style.matched]: isMatched })}>undefined</span>
+        {showComma && <span className={style.comma}>,</span>}
+      </>
+    );
   }
 
   if (type === 'boolean') {
     return (
-      <span className={classNames(style.boolean, { [style.matched]: isMatched })}>
-        <HighlightText text={data ? 'true' : 'false'} highlight={highlight} />
-      </span>
+      <>
+        <span className={classNames(style.boolean, { [style.matched]: isMatched })}>
+          <HighlightText text={data ? 'true' : 'false'} highlight={highlight} />
+        </span>
+        {showComma && <span className={style.comma}>,</span>}
+      </>
     );
   }
 
   if (type === 'number') {
     return (
-      <span className={classNames(style.number, { [style.matched]: isMatched })}>
-        <HighlightText text={String(data)} highlight={highlight} />
-      </span>
+      <>
+        <span className={classNames(style.number, { [style.matched]: isMatched })}>
+          <HighlightText text={String(data)} highlight={highlight} />
+        </span>
+        {showComma && <span className={style.comma}>,</span>}
+      </>
     );
   }
 
   if (type === 'string') {
     return (
-      <span className={classNames(style.string, { [style.matched]: isMatched })}>
-        "<HighlightText text={data} highlight={highlight} />"
-      </span>
+      <>
+        <span className={classNames(style.string, { [style.matched]: isMatched })}>
+          "<HighlightText text={data} highlight={highlight} />"
+        </span>
+        {showComma && <span className={style.comma}>,</span>}
+      </>
     );
   }
 
@@ -74,19 +93,24 @@ const JsonValue = ({ data, path, onToggle, collapsedKeys, highlight, matchedPath
             ...{entries.length} {formatMessage({ id: `JsonView.${type === 'array' ? 'items' : 'keys'}` })}
           </span>
         )}
-        {isCollapsed && <span className={style.bracket}>{closeBracket}</span>}
+        {isCollapsed && (
+          <>
+            <span className={style.bracket}>{closeBracket}</span>
+            {showComma && <span className={style.comma}>,</span>}
+          </>
+        )}
         {!isCollapsed && (
           <span className={style.content} style={{ paddingLeft: `${indentWidth}px` }}>
             {entries.map(([keyName, value], index) => (
               <div key={keyName} className={style.line}>
                 <span className={style.key}>{type === 'object' ? `"${keyName}"` : keyName}</span>
                 <span className={style.colon}>:</span>
-                <JsonValue data={value} path={[...path, keyName]} onToggle={onToggle} collapsedKeys={collapsedKeys} highlight={highlight} matchedPaths={matchedPaths} indentWidth={indentWidth} />
-                {index < entries.length - 1 && <span className={style.comma}>,</span>}
+                <JsonValue data={value} path={[...path, keyName]} onToggle={onToggle} collapsedKeys={collapsedKeys} highlight={highlight} matchedPaths={matchedPaths} indentWidth={indentWidth} showComma={index < entries.length - 1} />
               </div>
             ))}
             <span className={style.line}>
               <span className={style.bracket}>{closeBracket}</span>
+              {showComma && <span className={style.comma}>,</span>}
             </span>
           </span>
         )}

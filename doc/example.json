@@ -112,6 +112,22 @@
           "importStatement": "import \"@kne/json-view/dist/index.css\""
         }
       ]
+    },
+    {
+      "title": "缩进宽度调整",
+      "description": "展示如何动态调整 JSON 数据的缩进宽度",
+      "code": "./indent-width.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
     }
   ]
 }

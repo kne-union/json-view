@@ -235,6 +235,10 @@ $themes: (
       color: map-get($theme-vars, colon);
     }
 
+    .comma {
+      color: map-get($theme-vars, text);
+    }
+
     .string {
       color: map-get($theme-vars, string);
     }
@@ -308,7 +312,7 @@ $themes: (
 }
 
 .comma {
-  // 继承父级颜色
+  display: inline;
 }
 
 .null {
