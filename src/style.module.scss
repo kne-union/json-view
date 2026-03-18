@@ -115,7 +115,7 @@ $themes: (
 
 // 操作按钮
 .action-btn {
-  padding: 6px 12px;
+  padding: 6px 8px;
   font-size: 13px;
   font-family: inherit;
   border-radius: 4px;
@@ -125,6 +125,15 @@ $themes: (
     border-color 0.2s,
     color 0.2s;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 按钮组
+.button-group {
+  display: flex;
+  gap: 8px;
 }
 
 // 基础样式

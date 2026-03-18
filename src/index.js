@@ -9,8 +9,6 @@ import Toolbar from './components/Toolbar';
 import style from './style.module.scss';
 
 const JsonView = withLocale(({ data, collapsedFrom = Infinity, theme = 'dark', searchable = true, collapsable = true, indentWidth = 20, className }) => {
-  useIntl();
-
   const [searchQuery, setSearchQuery] = useState('');
 
   const initialCollapsedKeys = useMemo(() => {
@@ -102,7 +100,9 @@ const JsonView = withLocale(({ data, collapsedFrom = Infinity, theme = 'dark', s
 
   return (
     <div className={classNames(style.wrapper, style[`theme-${theme}`], className)}>
-      {(searchable || collapsable) && <Toolbar searchQuery={searchQuery} onSearchChange={setSearchQuery} onToggleExpand={handleToggleExpand} isAllExpanded={isAllExpanded} theme={theme} searchable={searchable} collapsable={collapsable} />}
+      {(searchable || collapsable) && (
+        <Toolbar searchQuery={searchQuery} onSearchChange={setSearchQuery} onToggleExpand={handleToggleExpand} isAllExpanded={isAllExpanded} theme={theme} searchable={searchable} collapsable={collapsable} data={data} />
+      )}
       <div className={style.container}>
         <JsonValue data={data} path={['root']} onToggle={handleToggle} collapsedKeys={collapsedKeys} highlight={searchQuery} matchedPaths={matchedPaths} indentWidth={indentWidth} />
       </div>
