@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 // 主题变量
 $themes: (
   light: (
@@ -21,7 +23,8 @@ $themes: (
     search-border: #d1d5db,
     search-focus: var(--primary-color, #3b82f6),
     search-text: #1f2937,
-    search-placeholder: #9ca3af
+    search-placeholder: #9ca3af,
+    line-number: #9ca3af
   ),
   dark: (
     bg: #1e1e1e,
@@ -44,9 +47,13 @@ $themes: (
     search-border: #404040,
     search-focus: var(--primary-color, #3b82f6),
     search-text: #d4d4d4,
-    search-placeholder: #6b7280
+    search-placeholder: #6b7280,
+    line-number: #6b7280
   )
 );
+
+// 行号默认宽度（会被 CSS 变量覆盖）
+$line-number-width: 32px;
 
 // 外层包装
 .wrapper {
@@ -115,7 +122,7 @@ $themes: (
 
 // 操作按钮
 .action-btn {
-  padding: 6px 12px;
+  padding: 6px 8px;
   font-size: 13px;
   font-family: inherit;
   border-radius: 4px;
@@ -125,6 +132,15 @@ $themes: (
     border-color 0.2s,
     color 0.2s;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 按钮组
+.button-group {
+  display: flex;
+  gap: 8px;
 }
 
 // 基础样式
@@ -136,6 +152,36 @@ $themes: (
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-all;
+  position: relative;
+  counter-reset: line-number;
+
+  // 显示行号时的样式
+  &.show-line-numbers {
+    --line-number-width: #{$line-number-width};
+    padding-left: calc(16px + var(--line-number-width));
+
+    .line,
+    .close-line {
+      &::before {
+        content: counter(line-number);
+        counter-increment: line-number;
+        position: absolute;
+        left: 8px;
+        width: calc(var(--line-number-width) - 8px);
+        text-align: right;
+        padding-right: 4px;
+        font-size: 12px;
+        user-select: none;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      // 收起节点时，跳过内部行数
+      &[style*='--line-count']::before {
+        counter-increment: line-number var(--line-count);
+      }
+    }
+  }
 }
 
 // 高亮样式
@@ -155,113 +201,119 @@ $themes: (
 @each $theme-name, $theme-vars in $themes {
   .theme-#{$theme-name} {
     &.wrapper {
-      background-color: map-get($theme-vars, bg);
-      border-color: map-get($theme-vars, guide-line);
+      background-color: map.get($theme-vars, bg);
+      border-color: map.get($theme-vars, guide-line);
     }
 
     &.container {
-      background-color: map-get($theme-vars, bg);
-      color: map-get($theme-vars, text);
+      background-color: map.get($theme-vars, bg);
+      color: map.get($theme-vars, text);
     }
 
     .toolbar {
-      background-color: map-get($theme-vars, search-bg);
-      border-bottom: 1px solid map-get($theme-vars, guide-line);
+      background-color: map.get($theme-vars, search-bg);
+      border-bottom: 1px solid map.get($theme-vars, guide-line);
     }
 
     .search-input {
-      background-color: map-get($theme-vars, bg);
-      border: 1px solid map-get($theme-vars, search-border);
-      color: map-get($theme-vars, search-text);
+      background-color: map.get($theme-vars, bg);
+      border: 1px solid map.get($theme-vars, search-border);
+      color: map.get($theme-vars, search-text);
 
       &::placeholder {
-        color: map-get($theme-vars, search-placeholder);
+        color: map.get($theme-vars, search-placeholder);
       }
 
       &:focus {
-        border-color: map-get($theme-vars, search-focus);
+        border-color: map.get($theme-vars, search-focus);
         box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
       }
     }
 
     .clear-btn {
-      background-color: map-get($theme-vars, guide-line);
-      color: map-get($theme-vars, text);
+      background-color: map.get($theme-vars, guide-line);
+      color: map.get($theme-vars, text);
     }
 
     .action-btn {
-      background-color: map-get($theme-vars, guide-line);
-      color: map-get($theme-vars, text);
-      border: 1px solid map-get($theme-vars, search-border);
+      background-color: map.get($theme-vars, guide-line);
+      color: map.get($theme-vars, text);
+      border: 1px solid map.get($theme-vars, search-border);
 
       &:hover {
-        background-color: map-get($theme-vars, search-focus);
+        background-color: map.get($theme-vars, search-focus);
         color: #fff;
-        border-color: map-get($theme-vars, search-focus);
+        border-color: map.get($theme-vars, search-focus);
       }
     }
 
     .toggle:hover {
       .arrow {
-        color: map-get($theme-vars, arrow-hover);
+        color: map.get($theme-vars, arrow-hover);
       }
 
       .bracket {
-        color: map-get($theme-vars, bracket-hover);
+        color: map.get($theme-vars, bracket-hover);
       }
     }
 
     .arrow {
-      color: map-get($theme-vars, arrow);
+      color: map.get($theme-vars, arrow);
     }
 
     .bracket {
-      color: map-get($theme-vars, bracket);
+      color: map.get($theme-vars, bracket);
     }
 
     .preview {
-      color: map-get($theme-vars, preview);
+      color: map.get($theme-vars, preview);
     }
 
     .content {
-      border-left-color: map-get($theme-vars, guide-line);
+      border-left-color: map.get($theme-vars, guide-line);
     }
 
     .key {
-      color: map-get($theme-vars, key);
+      color: map.get($theme-vars, key);
     }
 
     .colon {
-      color: map-get($theme-vars, colon);
+      color: map.get($theme-vars, colon);
     }
 
     .comma {
-      color: map-get($theme-vars, text);
+      color: map.get($theme-vars, text);
     }
 
     .string {
-      color: map-get($theme-vars, string);
+      color: map.get($theme-vars, string);
     }
 
     .number {
-      color: map-get($theme-vars, number);
+      color: map.get($theme-vars, number);
     }
 
     .boolean {
-      color: map-get($theme-vars, boolean);
+      color: map.get($theme-vars, boolean);
     }
 
     .null {
-      color: map-get($theme-vars, null);
+      color: map.get($theme-vars, null);
     }
 
     .highlight {
-      background-color: map-get($theme-vars, highlight-bg);
-      color: map-get($theme-vars, highlight-text);
+      background-color: map.get($theme-vars, highlight-bg);
+      color: map.get($theme-vars, highlight-text);
     }
 
     .matched {
       background-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .line::before,
+    .close-line::before,
+    .open-line::before {
+      color: map.get($theme-vars, line-number);
     }
   }
 }
@@ -305,6 +357,10 @@ $themes: (
 .line {
   display: block;
   min-height: 20px;
+}
+
+.open-line {
+  display: inline;
 }
 
 .close-line {

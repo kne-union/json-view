@@ -4,6 +4,30 @@ export const getDataType = data => {
   return typeof data;
 };
 
+// 计算节点展开后的总行数
+export const getNodeLineCount = data => {
+  const type = getDataType(data);
+
+  if (type !== 'array' && type !== 'object') {
+    return 1;
+  }
+
+  if (type === 'array') {
+    if (data.length === 0) return 1; // [] 算一行
+    // 开括号 + 子节点行数之和 + 闭括号
+    return 1 + data.reduce((sum, item) => sum + getNodeLineCount(item), 0) + 1;
+  }
+
+  if (type === 'object') {
+    const keys = Object.keys(data);
+    if (keys.length === 0) return 1; // {} 算一行
+    // 开括号 + 子节点行数之和 + 闭括号
+    return 1 + keys.reduce((sum, key) => sum + getNodeLineCount(data[key]), 0) + 1;
+  }
+
+  return 1;
+};
+
 export const collectCollapsedKeys = (data, collapsedFrom, path = ['root'], depth = 0) => {
   const keys = new Set();
   const type = getDataType(data);

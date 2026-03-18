@@ -6,7 +6,9 @@ const locale = {
   'JsonView.expandAll': '展开全部',
   'JsonView.collapseAll': '收起全部',
   'JsonView.items': '项',
-  'JsonView.keys': '个键'
+  'JsonView.keys': '个键',
+  'JsonView.copy': '复制',
+  'JsonView.copied': '已复制'
 };
 
 export default locale;

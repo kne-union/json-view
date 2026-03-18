@@ -1,7 +1,7 @@
 import { useIntl } from '@kne/react-intl';
 import { useCallback } from 'react';
 import classNames from 'classnames';
-import { getDataType } from '../utils/helpers';
+import { getDataType, getNodeLineCount } from '../utils/helpers';
 import HighlightText from './HighlightText';
 import style from '../style.module.scss';
 
@@ -84,9 +84,11 @@ const JsonValue = ({ data, path, onToggle, collapsedKeys, highlight, matchedPath
 
     return (
       <span className={style.collapsible}>
-        <span className={style.toggle} onClick={handleToggle}>
-          <span className={classNames(style.arrow, { [style.expanded]: !isCollapsed })}>▶</span>
-          <span className={style.bracket}>{openBracket}</span>
+        <span className={style['open-line']}>
+          <span className={style.toggle} onClick={handleToggle}>
+            <span className={classNames(style.arrow, { [style.expanded]: !isCollapsed })}>▶</span>
+            <span className={style.bracket}>{openBracket}</span>
+          </span>
         </span>
         {isCollapsed && (
           <span className={style.preview}>
@@ -102,13 +104,22 @@ const JsonValue = ({ data, path, onToggle, collapsedKeys, highlight, matchedPath
         {!isCollapsed && (
           <>
             <span className={style.content} style={{ paddingLeft: `${indentWidth}px` }}>
-              {entries.map(([keyName, value], index) => (
-                <div key={keyName} className={style.line}>
-                  <span className={style.key}>{type === 'object' ? `"${keyName}"` : keyName}</span>
-                  <span className={style.colon}>:</span>
-                  <JsonValue data={value} path={[...path, keyName]} onToggle={onToggle} collapsedKeys={collapsedKeys} highlight={highlight} matchedPaths={matchedPaths} indentWidth={indentWidth} showComma={index < entries.length - 1} />
-                </div>
-              ))}
+              {entries.map(([keyName, value], index) => {
+                const childPath = [...path, keyName];
+                const childType = getDataType(value);
+                const childKey = childPath.join('.');
+                const isChildCollapsed = collapsedKeys.has(childKey);
+                const childLineCount = childType === 'array' || childType === 'object' ? getNodeLineCount(value) : 1;
+                const shouldSkipLines = isChildCollapsed && childLineCount > 1;
+
+                return (
+                  <div key={keyName} className={style.line} style={shouldSkipLines ? { '--line-count': childLineCount } : undefined}>
+                    <span className={style.key}>{type === 'object' ? `"${keyName}"` : keyName}</span>
+                    <span className={style.colon}>:</span>
+                    <JsonValue data={value} path={childPath} onToggle={onToggle} collapsedKeys={collapsedKeys} highlight={highlight} matchedPaths={matchedPaths} indentWidth={indentWidth} showComma={index < entries.length - 1} />
+                  </div>
+                );
+              })}
             </span>
             <span className={style['close-line']}>
               <span className={style.bracket}>{closeBracket}</span>
