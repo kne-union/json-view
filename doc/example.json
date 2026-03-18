@@ -1,0 +1,117 @@
+{
+  "isFull": false,
+  "list": [
+    {
+      "title": "基础示例",
+      "description": "展示 JsonView 组件的基本用法，黑色主题 + 搜索功能",
+      "code": "./base.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
+    },
+    {
+      "title": "搜索功能",
+      "description": "展示搜索功能和高亮效果，以及关闭搜索功能",
+      "code": "./search.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
+    },
+    {
+      "title": "主题切换",
+      "description": "动态切换白色和黑色主题",
+      "code": "./theme.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
+    },
+    {
+      "title": "简单数据",
+      "description": "展示简单 JSON 数据的渲染效果",
+      "code": "./simple.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
+    },
+    {
+      "title": "数组数据",
+      "description": "展示数组类型 JSON 数据的渲染效果",
+      "code": "./array.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
+    },
+    {
+      "title": "深层嵌套",
+      "description": "展示深层嵌套数据的渲染效果",
+      "code": "./deep-nested.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
+    },
+    {
+      "title": "数据类型展示",
+      "description": "展示各种数据类型的渲染效果",
+      "code": "./types.js",
+      "scope": [
+        {
+          "name": "_JsonView",
+          "packageName": "@kne/current-lib_json-view",
+          "importStatement": "import * as _JsonView from \"@kne/json-view\""
+        },
+        {
+          "packageName": "@kne/current-lib_json-view/dist/index.css",
+          "importStatement": "import \"@kne/json-view/dist/index.css\""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+// 主题变量
+$themes: (
+  light: (
+    bg: #ffffff,
+    text: #1f2937,
+    bracket: #a855f7,
+    bracket-hover: #9333ea,
+    arrow: #9ca3af,
+    arrow-hover: #6b7280,
+    preview: #6b7280,
+    guide-line: #e5e7eb,
+    key: #0ea5e9,
+    colon: #1f2937,
+    string: #059669,
+    number: #ea580c,
+    boolean: #2563eb,
+    null: #6b7280,
+    highlight-bg: #fef08a,
+    highlight-text: #854d0e,
+    search-bg: #f3f4f6,
+    search-border: #d1d5db,
+    search-focus: var(--primary-color, #3b82f6),
+    search-text: #1f2937,
+    search-placeholder: #9ca3af
+  ),
+  dark: (
+    bg: #1e1e1e,
+    text: #d4d4d4,
+    bracket: #ffd700,
+    bracket-hover: #ffed4a,
+    arrow: #808080,
+    arrow-hover: #e0e0e0,
+    preview: #808080,
+    guide-line: #3c3c3c,
+    key: #9cdcfe,
+    colon: #d4d4d4,
+    string: #ce9178,
+    number: #b5cea8,
+    boolean: #569cd6,
+    null: #569cd6,
+    highlight-bg: #604500,
+    highlight-text: #ffd700,
+    search-bg: #2d2d2d,
+    search-border: #404040,
+    search-focus: var(--primary-color, #3b82f6),
+    search-text: #d4d4d4,
+    search-placeholder: #6b7280
+  )
+);
+
+// 外层包装
+.wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid;
+}
+
+// 工具栏
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+
+  &.toolbar-right {
+    justify-content: flex-end;
+  }
+}
+
+// 搜索框包装
+.search-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+// 搜索输入框
+.search-input {
+  width: 100%;
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  border-radius: 6px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &::placeholder {
+    opacity: 0.6;
+  }
+}
+
+// 清除按钮
+.clear-btn {
+  position: absolute;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// 操作按钮
+.action-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+  white-space: nowrap;
+}
+
+// 基础样式
+.container {
+  font-family: 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 16px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+// 高亮样式
+.highlight {
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+// 匹配节点样式
+.matched {
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+// 主题样式
+@each $theme-name, $theme-vars in $themes {
+  .theme-#{$theme-name} {
+    &.wrapper {
+      background-color: map-get($theme-vars, bg);
+      border-color: map-get($theme-vars, guide-line);
+    }
+
+    &.container {
+      background-color: map-get($theme-vars, bg);
+      color: map-get($theme-vars, text);
+    }
+
+    .toolbar {
+      background-color: map-get($theme-vars, search-bg);
+      border-bottom: 1px solid map-get($theme-vars, guide-line);
+    }
+
+    .search-input {
+      background-color: map-get($theme-vars, bg);
+      border: 1px solid map-get($theme-vars, search-border);
+      color: map-get($theme-vars, search-text);
+
+      &::placeholder {
+        color: map-get($theme-vars, search-placeholder);
+      }
+
+      &:focus {
+        border-color: map-get($theme-vars, search-focus);
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+      }
+    }
+
+    .clear-btn {
+      background-color: map-get($theme-vars, guide-line);
+      color: map-get($theme-vars, text);
+    }
+
+    .action-btn {
+      background-color: map-get($theme-vars, guide-line);
+      color: map-get($theme-vars, text);
+      border: 1px solid map-get($theme-vars, search-border);
+
+      &:hover {
+        background-color: map-get($theme-vars, search-focus);
+        color: #fff;
+        border-color: map-get($theme-vars, search-focus);
+      }
+    }
+
+    .toggle:hover {
+      .arrow {
+        color: map-get($theme-vars, arrow-hover);
+      }
+
+      .bracket {
+        color: map-get($theme-vars, bracket-hover);
+      }
+    }
+
+    .arrow {
+      color: map-get($theme-vars, arrow);
+    }
+
+    .bracket {
+      color: map-get($theme-vars, bracket);
+    }
+
+    .preview {
+      color: map-get($theme-vars, preview);
+    }
+
+    .content {
+      border-left-color: map-get($theme-vars, guide-line);
+    }
+
+    .key {
+      color: map-get($theme-vars, key);
+    }
+
+    .colon {
+      color: map-get($theme-vars, colon);
+    }
+
+    .string {
+      color: map-get($theme-vars, string);
+    }
+
+    .number {
+      color: map-get($theme-vars, number);
+    }
+
+    .boolean {
+      color: map-get($theme-vars, boolean);
+    }
+
+    .null {
+      color: map-get($theme-vars, null);
+    }
+
+    .highlight {
+      background-color: map-get($theme-vars, highlight-bg);
+      color: map-get($theme-vars, highlight-text);
+    }
+
+    .matched {
+      background-color: rgba(59, 130, 246, 0.2);
+    }
+  }
+}
+
+.collapsible {
+  display: inline;
+}
+
+.toggle {
+  display: inline;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrow {
+  display: inline-block;
+  font-size: 8px;
+  margin-right: 4px;
+  transition: transform 0.1s ease;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+}
+
+.bracket {
+  font-weight: 500;
+}
+
+.preview {
+  font-style: italic;
+  margin: 0 4px;
+}
+
+.content {
+  display: block;
+  border-left: 1px dashed;
+  margin-left: 8px;
+}
+
+.line {
+  display: block;
+  min-height: 20px;
+}
+
+.colon {
+  margin: 0 6px;
+}
+
+.comma {
+  // 继承父级颜色
+}
+
+.null {
+  font-style: italic;
+}
