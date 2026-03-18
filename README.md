@@ -488,15 +488,16 @@ render(<IndentWidthExample />);
 
 #### 属性
 
-| 属性 | 类型 | 默认值 | 描述 |
-|------|------|-------|------|
-| data | any | - | 要展示的 JSON 数据，支持任意类型 |
-| collapsedFrom | number | Infinity | 从第几级开始收起，默认全部展开 |
-| theme | 'light' \| 'dark' | 'dark' | 主题模式 |
-| searchable | boolean | true | 是否开启搜索功能 |
-| collapsable | boolean | true | 是否显示展开/收起全部按钮 |
-| indentWidth | number | 20 | 缩进宽度（像素） |
-| className | string | - | 自定义容器样式类名 |
+| 属性              | 类型                | 默认值      | 描述                  |
+|-----------------|-------------------|----------|---------------------|
+| data            | any               | -        | 要展示的 JSON 数据，支持任意类型 |
+| collapsedFrom   | number            | Infinity | 从第几级开始收起，默认全部展开     |
+| theme           | 'light' \| 'dark' | 'dark'   | 主题模式                |
+| searchable      | boolean           | true     | 是否开启搜索功能            |
+| collapsable     | boolean           | true     | 是否显示展开/收起全部按钮       |
+| indentWidth     | number            | 20       | 缩进宽度（像素）            |
+| showLineNumbers | boolean           | true     | 是否显示行号              |
+| className       | string            | -        | 自定义容器样式类名           |
 
 #### 搜索功能
 
@@ -521,10 +522,12 @@ render(<IndentWidthExample />);
 #### 主题样式
 
 **白色主题**
+
 - 背景: 白色 `#ffffff`
 - 高亮: 黄色背景 `#fef08a`
 
 **黑色主题** - 默认
+
 - 背景: 深色 `#1e1e1e`
 - 高亮: 金色背景 `#604500`
 
@@ -553,6 +556,9 @@ import JsonView from '@kne/json-view';
 
 // 自定义缩进宽度
 <JsonView data={data} indentWidth={40} />
+
+// 关闭行号显示
+<JsonView data={data} showLineNumbers={false} />
 ```
 
 #### 功能特性
@@ -563,4 +569,5 @@ import JsonView from '@kne/json-view';
 - **层级控制**: 支持展开/收起，`collapsedFrom` 控制初始状态
 - **缩进引导线**: 虚线显示层级关系
 - **自定义缩进**: 通过 `indentWidth` 参数配置缩进宽度
+- **行号显示**: 左侧显示行号，支持动态宽度计算，收起节点时行号保持正确
 - **复制功能**: 一键复制格式化的 JSON 数据到剪贴板
