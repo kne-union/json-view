@@ -1,6 +1,6 @@
 {
   "name": "@kne/json-view",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "一个用于友好展示 JSON 数据的 React 组件，支持语法高亮、层级展开收起、自定义展开深度等功能",
   "syntax": {
     "esmodules": true
@@ -92,7 +92,7 @@
     "react-dom": "*"
   },
   "devDependencies": {
-    "@kne/microbundle": "^0.15.5",
+    "@kne/microbundle": "^0.15.7",
     "@kne/modules-dev": "^2.0.33",
     "cross-env": "^7.0.3",
     "husky": "^9.0.11",
